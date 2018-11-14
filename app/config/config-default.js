@@ -99,7 +99,7 @@ module.exports = {
     // - Remove `--login` in shellArgs
     //
     // Bash on Windows
-    // - Example: `C:\\Windows\\System32\\bash.exe`
+    // - 'wsl', this magic constant must be in lowercase
     //
     // PowerShell on Windows
     // - Example: `C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe`
