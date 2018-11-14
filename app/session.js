@@ -18,10 +18,10 @@ try {
 } catch (err) {
   throw createNodePtyError();
 }
-try {
-  if (process.platform === 'win32')
-    spawnWsl = require('wslpty').spawn;
-} catch (err) {}
+
+if (process.platform === 'win32') {
+  spawnWsl = require('wslpty').spawn;
+}
 
 const envFromConfig = config.getConfig().env || {};
 
