@@ -178,6 +178,10 @@ find-up@^2.1.0:
   dependencies:
     locate-path "^2.0.0"
 
+get-port@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/get-port/-/get-port-3.2.0.tgz#dd7ce7de187c06c8bf353796ac71e099f0980ebc"
+
 get-stream@^2.2.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-2.3.1.tgz#5f38f93f346009666ee0150a054167f91bdd95de"
@@ -580,6 +584,12 @@ write-file-atomic@^2.3.0:
     graceful-fs "^4.1.11"
     imurmurhash "^0.1.4"
     signal-exit "^3.0.2"
+
+wslpty@0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/wslpty/-/wslpty-0.2.1.tgz#bf823527b05048af6a4475e3ed8206b8a0cc2587"
+  dependencies:
+    get-port "^3.2.0"
 
 yallist@^2.1.2:
   version "2.1.2"

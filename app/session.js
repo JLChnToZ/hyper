@@ -12,12 +12,16 @@ const createNodePtyError = () =>
     '`node-pty` failed to load. Typically this means that it was built incorrectly. Please check the `readme.md` to more info.'
   );
 
-let spawn;
+let spawn, spawnWsl;
 try {
   spawn = require('node-pty').spawn;
 } catch (err) {
   throw createNodePtyError();
 }
+try {
+  if (process.platform === 'win32')
+    spawnWsl = require('wslpty').spawn;
+} catch (err) {}
 
 const envFromConfig = config.getConfig().env || {};
 
@@ -49,18 +53,27 @@ module.exports = class Session extends EventEmitter {
 
     const defaultShellArgs = ['--login'];
 
-    try {
-      this.pty = spawn(shell || defaultShell, shellArgs || defaultShellArgs, {
+    if (shell === 'wsl' && process.platform === 'win32') {
+      this.pty = spawnWsl({
         cols: columns,
         rows,
         cwd,
         env: getDecoratedEnv(baseEnv)
       });
-    } catch (err) {
-      if (/is not a function/.test(err.message)) {
-        throw createNodePtyError();
-      } else {
-        throw err;
+    } else {
+      try {
+        this.pty = spawn(shell || defaultShell, shellArgs || defaultShellArgs, {
+          cols: columns,
+          rows,
+          cwd,
+          env: getDecoratedEnv(baseEnv)
+        });
+      } catch (err) {
+        if (/is not a function/.test(err.message)) {
+          throw createNodePtyError();
+        } else {
+          throw err;
+        }
       }
     }
 
